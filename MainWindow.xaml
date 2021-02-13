@@ -1,0 +1,494 @@
+﻿<Window x:Class="NIR.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NIR"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="515" Width="365" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Window.Background>
+
+        <!--ЦВЕТ ФОНА-->
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FF252F42" Offset="0"/>
+            <GradientStop Color="#FF1D222C" Offset="1"/>
+            <GradientStop Color="#FF1D222C" Offset="0.496"/>
+        </LinearGradientBrush>
+
+    </Window.Background>
+    <Window.Resources>
+        <Style x:Key="ComboBox" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Background" Value="#FF1B1F29"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="Border" BorderThickness="0"  BorderBrush="Black"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <EventTrigger RoutedEvent="PreviewMouseDown">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ThicknessAnimation Storyboard.TargetProperty="Margin" Duration="0:0:0.100" To="2,2,0,0"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="PreviewMouseUp">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ThicknessAnimation Storyboard.TargetProperty="Margin"  Duration="0:0:0.100" To="0"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ComboButtons" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Background" Value="#FF222B3B"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Foreground" Value="#FFABB2BD"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="Border" BorderThickness="0"  BorderBrush="Black"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Left"
+                                              VerticalAlignment="Center" Margin="30,0,0,0"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF323945"/>
+                                <Setter Property="Foreground" Value="#FFC3C4C8"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="Tb" TargetType="TextBox">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Background" Value="#FF11141A"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="BorderBrush" Value="#FF2D333D"/>
+            <Setter Property="Padding" Value="10,0,0,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Grid x:Name="root" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" SnapsToDevicePixels="True" >
+                            <Border x:Name="Background" BorderThickness="1" CornerRadius="2" BorderBrush="{TemplateBinding BorderBrush}" 
+                                    Background="{TemplateBinding Background}"/>
+                            <ScrollViewer x:Name="PART_ContentHost" BorderThickness="0" 
+                                          Padding="{TemplateBinding Padding}" 
+                                          IsTabStop="False"
+                                          Background="{x:Null}"
+                                          TextElement.Foreground="{TemplateBinding Foreground}"/>
+
+
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="#FF383C44"/>
+                                
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="#FF16A3FF"/>
+                                <Setter Property="Background" Value="#FF0E1116"/>
+
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="Ps" TargetType="PasswordBox">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Background" Value="#FF11141A"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="BorderBrush" Value="#FF2D333D"/>
+            <Setter Property="Padding" Value="10,0,0,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="PasswordBox">
+                        <Grid x:Name="root2" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" SnapsToDevicePixels="True" >
+                            <Border x:Name="Background" BorderThickness="1" CornerRadius="2" BorderBrush="{TemplateBinding BorderBrush}" 
+                                    Background="{TemplateBinding Background}"/>
+                            <ScrollViewer x:Name="PART_ContentHost" BorderThickness="0" 
+                                          Padding="{TemplateBinding Padding}" 
+                                          IsTabStop="False"
+                                          Background="{x:Null}"
+                                          TextElement.Foreground="{TemplateBinding Foreground}"/>
+
+
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="#FF383C44"/>
+
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="#FF16A3FF"/>
+                                <Setter Property="Background" Value="#FF0E1116"/>
+
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+    <Grid>
+
+        <!--Разделение экрана-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="300"/>
+            <RowDefinition Height="90"/>
+        </Grid.RowDefinitions>
+        <Grid Name="Toolbar" Background="Transparent" Grid.Row="0" MouseDown="Toolbar_MouseDown">
+
+            <!--Фигура сверху-->
+            <Polygon Fill="White" Opacity="0.2" 
+                 Points="107,0,
+                 115,7,
+                 249,7,
+                 257,0"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <!--Tire-->
+                <Image x:Name="GreyLowButtom" Height="25" Width="25" Margin="3,3,3,-3" MouseDown="GreyLowButtom_MouseDown" >
+                    <Image.Style>
+                        <Style TargetType="{x:Type Image}">
+                            <Setter Property="Source" Value="Sourse/тире не актив.png"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsMouseOver, ElementName=GreyLowButtom}"
+                                             Value="True">
+                                    <Setter Property="Source" Value="Sourse/Тире актив.png"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Image.Style>
+                    <Image.Effect>
+                        <BlurEffect Radius="2"/>
+                    </Image.Effect>
+                </Image>
+                <!--Krestik-->
+                <Image x:Name ="GreyXButtom" Height="25" Width="25" Margin="3" MouseDown="GreyXButtom_MouseDown">
+                    <Image.Style>
+                        <Style TargetType="{x:Type Image}">
+                            <Setter Property="Source" Value="Sourse/Крест.png"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsMouseOver, ElementName=GreyXButtom}"
+                                             Value="True">
+                                    <Setter Property="Source" Value="Sourse/Крестик Актив.png"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Image.Style>
+                    <Image.Effect>
+                        <BlurEffect Radius="2"/>
+                    </Image.Effect>
+                </Image>
+
+            </StackPanel>
+            <!--GridLogotipa-->
+        </Grid>
+        <Grid Name="Logo" Background="Transparent" Grid.Row="1" MouseDown="Logo_MouseDown">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="65*"/>
+                <ColumnDefinition Width="8*"/>
+            </Grid.ColumnDefinitions>
+            <Image  Source="Sourse/TestLogo2.png" Height="99" Width="300" Grid.ColumnSpan="2"  />
+        </Grid>
+
+        <!--Nachalo Knopki-->
+
+        <Border Name="CbmBorder" Grid.Row="2" Height="24" Width="40"
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top" Margin="25,15,0,0" CornerRadius="2" 
+                BorderThickness="1" Background="Black" >
+            <Border.Style>
+                <Style TargetType="{x:Type Border}">
+                    <Setter x:Name="Style" Property="BorderBrush" Value="#FF353A44"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="BorderBrush" Value="#FF54585F"/>
+                        </Trigger>
+                        <EventTrigger RoutedEvent="PreviewMouseDown">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color" 
+                                                    Duration="0:0:0.100" To="#FF353A44"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="PreviewMouseUp">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color" 
+                                                    Duration="0:0:0.100" To="#FF54585F"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+
+            <Button Name="CountryButton" Style="{StaticResource ComboBox}" Click="CountryButton_Click" >
+                <StackPanel Orientation="Horizontal">
+                    <Image Height="14" Width="14" Margin="5,0,0,0">
+                        <Image.Style>
+                            <Style TargetType="{x:Type Image}">
+                                <Setter Property="Source" Value="Sourse/ГлобусНеАкт.png"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsMouseOver, ElementName=CbmBorder}" Value="True">
+                                        <Setter Property="Source" Value="Sourse/Глобус.png"/>
+                                    </DataTrigger>
+                                    <!--Бинд кнопки ,чтобы после нажатия глобус менял цвет на НЕАКТИВ-->
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource
+                                        FindAncestor, AncestorType={x:Type Button},
+                                        AncestorLevel=1}, Path=IsPressed}" Value="True">
+                                        <Setter Property="Source" Value="Sourse/ГлобусНеАкт.png"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+                    <Image Height="14" Width="14" Margin="3,0,5,0">
+                        <Image.Style>
+                            <Style TargetType="{x:Type Image}">
+                                <Setter Property="Source" Value="Sourse/СтрелкаВнизНеАктив.png"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsMouseOver, ElementName=CbmBorder}" Value="True">
+                                        <Setter Property="Source" Value="Sourse/СтрелкаВнизАктив.png"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource
+                                        FindAncestor, AncestorType={x:Type Button},
+                                        AncestorLevel=1}, Path=IsPressed}" Value="True">
+                                        <Setter Property="Source" Value="Sourse/СтрелкаВнизНеАктив.png"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+                </StackPanel>
+            </Button>
+
+            <!--End of Knopki-->
+
+        </Border>
+        <Grid Name="LeftGrid" Panel.ZIndex="999" Grid.Row="2" Height="160" Width="200"
+              HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,42,0,0" Visibility="Hidden">
+            <!--(Ширина,Высота)-->
+            <Polygon Fill="Black" StrokeThickness="3" Stroke="Black"
+                     Points="0,8,0,145,
+                     190,145,
+                     190,8,
+                     37,8,
+                     29,0,
+                     21,8"/>
+            <Polygon Fill="#FF222B3B" StrokeThickness="1" Points="0,8,0,145,
+                     190,145,
+                     190,8,
+                     37,8,
+                     29,0,
+                     21,8" Stroke="#FF54585F"/>
+            <Grid Height="132" Width="189" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1,13,11,0">
+                <StackPanel Orientation="Vertical">
+                    <Button Name="AmericaButton" Style="{StaticResource ComboButtons}" 
+                            Click="AmericaButton_Click">
+                        <Grid Width="190" Margin="-30,0,0,0">
+                            <TextBlock Text="Америка" Margin="30,0,0,0"/>
+                            <Image Name="AmerikaImg" HorizontalAlignment="Left" Height="8" Width="8" Margin="10,2,0,0" 
+                                   Visibility="Hidden" Source="Sourse/Точка.png"/>
+                        </Grid>
+                    </Button>
+                    <Button Name="EroupeButton" Style="{StaticResource ComboButtons}"
+                            Click="EroupeButton_Click">
+                        <Grid Width="190" Margin="-30,0,0,0">
+                        <TextBlock Text="Европа" Margin="30,0,0,0"/>
+                            <Image Name="EroupeImg" HorizontalAlignment="Left" Height="8" Width="8" Margin="10,2,0,0" 
+                                   Visibility="Visible" Source="Sourse/Точка.png"/>
+                        </Grid>
+                    </Button>
+                    <Button Name="AsiaButton" Style="{StaticResource ComboButtons}" 
+                            Click="AsiaButton_Click">
+                        <Grid Width="190" Margin="-30,0,0,0">
+                            <TextBlock Text="Азия" Margin="30,0,0,0"/>
+                            <Image Name="AsiaImg" HorizontalAlignment="Left" Height="8" Width="8" Margin="10,2,0,0" 
+                                   Visibility="Hidden" Source="Sourse/Точка.png"/>
+                        </Grid>
+                    </Button>
+                    <Button Name="ChinaButton" Style="{StaticResource ComboButtons}" 
+                            Click="ChinaButton_Click">
+                        <Grid Width="190" Margin="-30,0,0,0">
+                            <TextBlock Text="Китай" Margin="30,0,0,0"/>
+                            <Image Name="ChinaImg" HorizontalAlignment="Left" Height="8" Width="8" Margin="10,2,0,0" 
+                                   Visibility="Hidden" Source="Sourse/Точка.png"/>
+                        </Grid>
+                    </Button>
+                    <Polygon Fill="White" Stroke="#FF54585F" StrokeThickness="1" Points="0,1,190,1"/>
+                    <Button Name="HelpButton" Style="{StaticResource ComboButtons}" Margin="0,3,0,0">
+                        <TextBlock Text="Мне нужна помощь"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <TextBlock Name="CountryChosen" Text="Европа" Foreground="#FFBABABC" Margin="75,15,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                       FontSize="14" Grid.Row="2" />
+        <!--Nachalo Knopki Option-->
+
+        <Border  Grid.Row="2" Height="25" Width="25"
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Top" Margin="0,15,23,0" CornerRadius="2" 
+                BorderThickness="1" Background="Black" >
+            <Border.Style>
+                <Style TargetType="{x:Type Border}">
+                    <Setter x:Name="Style" Property="BorderBrush" Value="#FF353A44"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="BorderBrush" Value="#FF54585F"/>
+                        </Trigger>
+                        <EventTrigger RoutedEvent="PreviewMouseDown">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color" 
+                                                    Duration="0:0:0.100" To="#FF353A44"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="PreviewMouseUp">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color" 
+                                                    Duration="0:0:0.100" To="#FF54585F"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+
+            <Button Name="OptionButton" Style="{StaticResource ComboBox}" Click="OptionButton_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Image Height="14" Width="14" Margin="0,0,0,0">
+                        <Image.Style>
+                            <Style TargetType="{x:Type Image}">
+                                <Setter Property="Source" Value="Sourse/Настройки.png"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsMouseOver, ElementName=OptionButton}" Value="True">
+                                        <Setter Property="Source" Value="Sourse/НастройкиАктив.png"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource
+                                        FindAncestor, AncestorType={x:Type Button},
+                                        AncestorLevel=1}, Path=IsPressed}" Value="True">
+                                        <Setter Property="Source" Value="Sourse/Настройки.png"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+                </StackPanel>
+            </Button>
+
+            <!--End of Knopki-->
+
+        </Border>
+        <Grid Name="RightGrid" Panel.ZIndex="999" Grid.Row="2" Height="123" Width="310" 
+              HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,42,17,0" Visibility="Hidden">
+            <!--(Ширина,Высота)-->
+            <Polygon Fill="Black" StrokeThickness="3" Stroke="Black" HorizontalAlignment="Center"
+                     Points="0,8,0,120,
+                     300,120,
+                     300,8,
+                     295,8,
+                     287,0,
+                     279,8" />
+            <Polygon Fill="#FF222B3B" StrokeThickness="1" Points="0,8,0,120, 
+                     300,120,
+                     300,8,
+                     295,8,
+                     287,0,
+                     279,8" HorizontalAlignment="Center" Stroke="#FF54585F" Margin="4,0,6,0"/>
+            <Grid Height="132" Width="297" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,11,0,0">
+                <StackPanel Orientation="Vertical">
+                    <Button Name="UseMyLastStatusButton" Style="{StaticResource ComboButtons}" Click="UseMyLastStatusButton_Click">
+                        <Grid Width="299" Margin="-30,0,0,0">
+                            <TextBlock Text="Использовать мой послежний статус"  Margin="30,0,0,0" />
+                            <Image Name="PointUseMyLastStatus" HorizontalAlignment="Left" Height="8" Width="8" Margin="10,2,0,0" Visibility="Hidden" Source="Sourse/Точка.png"/>
+                        </Grid>
+
+                    </Button>
+
+                    <Button Name="invisButton" Style="{StaticResource ComboButtons}" Click="invisButton_Click">
+                        <Grid Width="299" Margin="-30,0,0,0">
+                            <TextBlock Text="Невидимый"  Margin="30,0,0,0" />
+                            <Image Name="PointInvis" HorizontalAlignment="Left" Height="8" Width="8" Margin="10,2,0,0" Visibility="Visible" Source="Sourse/Точка.png"/>
+                        </Grid>
+                       
+                    </Button>
+                    <Polygon Fill="White" Stroke="#FF54585F" StrokeThickness="1" Points="0,3,310,3"/>
+                    <Button Name="OpenOptionButton" Style="{StaticResource ComboButtons}">
+                        <Grid Width="299" Margin="-30,0,0,0">
+                            <TextBlock Text="Настройки" Margin="30,0,0,0"/>
+                            <Image HorizontalAlignment="Left"  Height="13" Width="14" Margin="10,2,0,0" Source="Sourse/Настройки.png"/>
+                        </Grid>
+
+                    </Button>
+                    <Button Name="ConnectButton" Style="{StaticResource ComboButtons}">
+                        <Grid Width="299" Margin="-30,0,0,0">
+                            <TextBlock Text="Продолжить без авторизации" Margin="30,0,0,0"/>
+                            <Image HorizontalAlignment="Left" Height="13" Width="14" Margin="10,2,0,0" Source="Sourse/Электр.png"/>
+                        </Grid>
+      
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <TextBox x:Name="TboxMail" Grid.Row="2" Style="{StaticResource Tb}" Width="330"  Margin="18,50,17,215"/>
+        <TextBlock IsHitTestVisible="False" Text="Эл.почта или телефон" FontSize="14" 
+                   Grid.Row="2" Margin="30,50,17,215" VerticalAlignment="Center" Foreground="#FF535559">
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Text, ElementName=TboxMail}" Value="">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+        <PasswordBox x:Name="PboxPassword" Grid.Row="2" Style="{StaticResource Ps}" MaxLength="60" 
+                 Width="330"  Margin="18,100,17,165"/>
+        
+        <TextBlock  IsHitTestVisible="False" Text="Пароль" FontSize="14" Grid.Row="2" Margin="30,100,17,165" VerticalAlignment="Center" Foreground="#FF535559">
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Text, ElementName=PboxPassword}" Value="">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+
+        </TextBlock>
+       
+
+    </Grid>
+</Window>
